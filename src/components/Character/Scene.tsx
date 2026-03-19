@@ -72,7 +72,14 @@ const Scene = () => {
           window.addEventListener("resize", () =>
             handleResize(renderer, camera, canvasDiv, character)
           );
+        } else {
+          // If model fails to load, still finish loading
+          progress.clear();
         }
+      }).catch((error) => {
+        console.error("Character loading error:", error);
+        // Ensure loading completes even on error
+        progress.clear();
       });
 
       let mouse = { x: 0, y: 0 },

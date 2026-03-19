@@ -10,6 +10,14 @@ const Loading = ({ percent }: { percent: number }) => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [clicked, setClicked] = useState(false);
 
+  // Force dismiss loading after 15 seconds max
+  useEffect(() => {
+    const forceTimeout = setTimeout(() => {
+      setIsLoading(false);
+    }, 15000);
+    return () => clearTimeout(forceTimeout);
+  }, [setIsLoading]);
+
   if (percent >= 100) {
     setTimeout(() => {
       setLoaded(true);
